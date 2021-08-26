@@ -1,0 +1,157 @@
+<div class="list row">
+    <div class="col-md-18">
+        <h2><img src="assets/image/talan.png"></h2>
+
+
+        <div class="input-group ">
+            <input type="text" class="form-control" placeholder="Chercher par categorie" [(ngModel)]="category" />
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">
+          Search
+        </button>
+                <hr>
+                <div class="col ml-auto text-rignt">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <mat-icon>add_circle</mat-icon> 
+          Ajouter une question </button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="container py=10">
+        <div class="row">
+
+            <div class="col-md-10">
+
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="col-md-18">
+
+            <ul id="invitedList">
+
+                <li class="list-group-item" *ngFor="let question of questions ; let i = index" [class.active]="i == currentIndex">
+                    <fa-icon [icon]="faUserCircle " style="font-size:48px;"></fa-icon><br> {{question.description }}
+
+                    <br>
+                    <hr>
+                    <button data-bs-toggle="modal" data-bs-target="#exampleModal1" (click)="updateQuestion(question.id)"><fa-icon [icon]="faEdit"   ></fa-icon></button>
+                    <button (click)="deleteQuestion(question.id)"><fa-icon [icon]="faTrashAlt" ></fa-icon></button>
+
+
+                </li>
+
+            </ul>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <div class="card-body">
+
+
+
+
+                    <span class="badge badge-success"></span>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div *ngIf="!submitted">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                <B>Posez votre question</B>
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <mat-card>
+                            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="90px" fxLayoutGap.lt-md="50px">
+                                <mat-form-field fxFlex>
+                                    <mat-label for="description">Question</mat-label>
+                                    <input matInput type="text" placeholder="Question" id="description" required [(ngModel)]="question.description">
+                                </mat-form-field>
+                                <br>
+
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Select category</mat-label>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Categories</mat-label>
+                                        <mat-select [(value)]="selectedValue" id="category" [(ngModel)]="question.category">
+                                            <mat-option *ngFor="let category of categorys" value="{{category.title}}">{{category.title}}
+                                            </mat-option>
+
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-form-field>
+
+                            </div>
+                        </mat-card>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button (click)="saveQuestion()" class="btn btn-success" data-bs-dismiss="modal">ajouter</button>
+                        </div>
+                        <div *ngIf="submitted">
+                            <h4>You submitted successfully! </h4>
+                            <button class="btn btn-success" routerLink="/questions">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="exampleModalLabel"> Modifiez votre question</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    </div>
+
+                    <mat-card>
+                        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="90px" fxLayoutGap.lt-md="10px">
+                            <mat-form-field fxFlex>
+
+                                <mat-label for="description">Question</mat-label>
+                                <input matInput type="text" placeholder="Question" id="description" required [(ngModel)]="question.description">
+
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field fxFlex>
+                                <mat-label>Select Categorie</mat-label>
+                                <mat-select>
+
+                                </mat-select>
+
+                            </mat-form-field>
+                        </div>
+                    </mat-card>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button (click)="saveQuestion1()" class="btn btn-success" data-bs-dismiss="modal">Modifier</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

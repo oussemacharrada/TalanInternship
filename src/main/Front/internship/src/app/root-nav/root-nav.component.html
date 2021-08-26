@@ -1,0 +1,50 @@
+<mat-toolbar class="mat-elevation-z8">
+    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+          menu
+      </mat-icon>
+      <mat-icon  *ngIf="sidenav.opened">
+          close
+      </mat-icon>
+  </button> Internship
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+
+        <img class="avatar mat-elevation-z8" src="./assets/logo.png" />
+        <h4 class="name">Talan</h4>
+
+
+        <mat-divider></mat-divider>
+        <a routerLink="home">
+            <button mat-button class="menu-button"> 
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+      </button>
+        </a>
+        <a routerLink="category">
+            <button mat-button class="menu-button">
+          <mat-icon>info</mat-icon>
+          <span>Categories</span>
+      </button>
+        </a>
+        <a routerLink="questions">
+            <button mat-button class="menu-button">
+          <mat-icon>info</mat-icon>
+          <span>Question</span>
+      </button>
+        </a>
+        <a routerLink="threads">
+            <button mat-button class="menu-button">
+          <mat-icon>info</mat-icon>
+          <span>threads</span>
+      </button>
+        </a>
+        <mat-divider></mat-divider>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+        <ng-content></ng-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>

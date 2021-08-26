@@ -1,0 +1,106 @@
+<div class="container" id="main-container">
+    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add new Category</button>
+
+    <table id="example" class="table table-striped" cellspacing="0" width="100%">
+
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">type</th>
+                <th scope="col">description</th>
+                <th scope="col">title</th>
+
+                <th scope="col">Actions</th>
+
+
+            </tr>
+        </thead>
+        <tbody *ngFor="let category of categorys">
+            <tr>
+                <td>{{category.id}}</td>
+                <td>
+                    <div *ngIf="!editc">
+                        {{category.type}}
+                    </div>
+                    <div *ngIf="editc">
+                        <input type="text" class="form-control" name="type" [(ngModel)]="category.type"> </div>
+                </td>
+                <td>
+                    <div *ngIf="!editc">
+                        {{category.description}}
+                    </div>
+                    <div *ngIf="editc">
+                        <input type="text" class="form-control" name="description" [(ngModel)]="category.description"> </div>
+                </td>
+
+                <td>
+                    <div *ngIf="!editc">
+                        {{category.title}}
+                    </div>
+                    <div *ngIf="editc">
+                        <input type="text" class="form-control" name="title" [(ngModel)]="category.title"> </div>
+                </td>
+
+                <td>
+                    <button mat-icon-button color="secondary" (click)="EditMode(category)" title="delete Categorys"><mat-icon>edit</mat-icon></button>
+                    <button mat-icon-button color="primary" (click)="onDeleteCategory(category.id)" title="Edit Categorys"><mat-icon>delete</mat-icon></button>
+
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <div class="card-body">
+        <div class="float-right btn-group btn-group-sm">
+
+
+
+        </div>
+    </div>
+    <!-- Notification for no Categorys -->
+    <div *ngIf="categorys?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">NO CategoryS!</h4>
+            <p>No Categorys were found.</p>
+        </div>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="CategoryForm" #addForm="ngForm" (ngSubmit)="onAddCategory(addForm)">
+            <div class="form-group">
+                <label for="type">type</label>
+                <input type="text" ngModel name="type" formControlName="type" class="form-control" id="type" placeholder="type" required>
+                <span class="error" *ngIf="type.invalid"> type is required  </span>
+
+            </div>
+            <div class="form-group">
+                <label for="title">title</label>
+                <input type="text" ngModel name="title" formControlName="title" class="form-control" id="title" placeholder="title" required>
+                <span class="error" *ngIf="title.invalid"> title is required  </span>
+
+            </div>
+            <div class="form-group">
+                <label for="description">description</label>
+                <input type="text" ngModel name="description" formControlName="description" class="form-control" id="description" placeholder="description" required>
+                <span class="error" *ngIf="description.invalid"> description is required  </span>
+
+            </div>
+
+
+            <div class="modal-footer" *ngIf="title.invalid||description.invalid||type.invalid">
+                <button type="submit" class="btn btn-primary disabled">Sauvgarder</button>
+            </div>
+            <div class="modal-footer" *ngIf="!title.invalid&&!description.invalid&&!type.invalid">
+                <button type="submit" class="btn btn-primary ">Sauvgarder</button>
+            </div>
+        </form>
+    </div>
+
+</ng-template>
