@@ -85,8 +85,10 @@ faPaperclip=faPaperclip;
     
     
   }
-  
-  public getCategorys(): void {
+  removemodal(){
+    $(".modal-backdrop").remove();
+  }
+    public getCategorys(): void {
     this.CategoryService.getCategorys().subscribe(
       (response: Category[]) => {
         this.categorys = response;
