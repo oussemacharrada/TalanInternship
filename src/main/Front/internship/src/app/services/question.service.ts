@@ -28,10 +28,23 @@ export class QuestionService {
   }
 
  
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+  update( data: any): Observable<any> {
+    return this.http.put(`${baseUrl}/${data.id}`, data);
   }
   delete(id:any): Observable<any> {
     return this.http.delete(`${baseUrl}/${id}`);
   }
+  findByDescription(description: any): Observable<Question[]> {
+    return this.http.get<Question[]>(`${baseUrl}?description=${description}`);
   }
+
+  public upload(formData:any) {
+    console.log("upload service function is called")
+    console.log(formData)
+    return this.http.post<FormData>(baseUrl, formData, {  
+        reportProgress: true,  
+        observe: 'events'  
+      });  
+
+  
+}}

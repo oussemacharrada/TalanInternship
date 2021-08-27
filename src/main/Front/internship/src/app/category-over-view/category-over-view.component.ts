@@ -4,6 +4,8 @@ import { CategoryService } from '../services/category.service';
 import { Question } from '../models/question.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../services/question.service';
+import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+
 @Component({
   selector: 'app-category-over-view',
   templateUrl: './category-over-view.component.html',
@@ -13,7 +15,7 @@ export class CategoryOverViewComponent implements OnInit {
  
  
  
-   categorys : Category[] | undefined; 
+   categorys : Category[] =[]; 
 
   
   selectedValue: string|undefined;
@@ -22,7 +24,7 @@ export class CategoryOverViewComponent implements OnInit {
   
 
  
-  questions?: Question[];
+  questions: Question[]=[];
   
   currentIndex = -1;
   currentQuestion: Question = {
@@ -30,7 +32,7 @@ export class CategoryOverViewComponent implements OnInit {
     description: '',
     published: false
   };
-public categoryid: any ;
+  public categoryid: any ;
   question={
     category :'',
     description:'',
@@ -40,13 +42,26 @@ public categoryid: any ;
 
   
   message = '';
+  pageSlice: Question[];
 
 
   constructor(private questionService: QuestionService ,private route: ActivatedRoute,
     private router: Router ,private CategoryService: CategoryService) { 
     
   }
+  retrieveQuestions(): void {
+    this.questionService.getAll()
+      .subscribe(
+        data => {
+          this.questions = data;
+          this.pageSlice=data.slice(0,5);
 
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
   ngOnInit(): void {
     this.categoryid=this.route.snapshot.params.id;
     this.retrieveQuestions();
@@ -63,29 +78,33 @@ public categoryid: any ;
     
     );
   }
-  retrieveQuestions(): void {
-    this.questionService.getAll()
-      .subscribe(
-        data => {
-          this.questions = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-  }
+  
+
   getQuestion(id: any): void {
     this.questionService.get(id)
       .subscribe(
         data => {
           this.currentQuestion = data;
           console.log(data);
+
         },
         error => {
           console.log(error);
         });
   }
- 
-  
 
+
+OnPageChange(event:PageEvent){
+
+  const startIndex = event.pageIndex * event.pageSize;
+  let endIndex = startIndex + event.pageSize;
+  console.log("length = " +this.questions.length);
+  if(endIndex>this.questions.length){
+    endIndex=this.questions.length;
+  console.log(this.questions.length);
+
+  }
+  this.pageSlice=this.questions.slice(startIndex,endIndex);
+
+}
 }

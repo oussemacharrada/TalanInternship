@@ -1,4 +1,8 @@
 <div class="container my-3">
+    <nav class="breadcrumb">
+        <a routerLink="/home" class="breadcrumb-item">Home</a>
+        <span class="breadcrumb-item active">Forum category</span>
+    </nav>
 
     <div class="row" *ngFor="let category of categorys">
         <div class="col-12 col-xl-9" *ngIf="category.id == categoryid ">
@@ -12,11 +16,11 @@
                         <th scope="col" class="last-post-col">Last post</th>
                     </tr>
                 </thead>
-                <tbody *ngFor="let question of questions">
+                <tbody *ngFor="let question of pageSlice">
                     <tr *ngIf='question.category === category.title'>
                         <td>
-                            <h3 class="h5 mb-0"><a routerLink="/question/{{question.id}}" class="text-uppercase">{{question.category}}</a></h3>
-                            <p class="mb-0">{{question.description}}</p>
+                            <h3 class="h5 mb-0"><a routerLink="/question/{{question.id}}" class="text-uppercase">Question Title</a></h3>
+                            <p class="mb-0">- {{question.description}}</p>
                         </td>
                         <td>
                             <div>5</div>
@@ -25,13 +29,16 @@
                             <div>18</div>
                         </td>
                         <td>
-                            <h4 class="h6 mb-0 font-weight-bold"><a href="#0">Post name</a></h4>
-                            <div>by <a href="#0">Author name</a></div>
+                            <h4 class="h6 mb-0 font-weight-bold">Post name</h4>
+                            <div>by Author name</div>
                             <div>05 Apr 2017, 20:07</div>
                         </td>
                     </tr>
 
                 </tbody>
+
+                <mat-paginator [length]="questions.length" [pageSize]="5" (page)="OnPageChange($event)" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page">
+                </mat-paginator>
             </table>
         </div>
 

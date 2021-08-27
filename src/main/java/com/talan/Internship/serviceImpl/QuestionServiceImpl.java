@@ -1,6 +1,8 @@
 package com.talan.Internship.serviceImpl;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +41,7 @@ public class QuestionServiceImpl implements IQuestionService {
 	@Override
 	public List<Question> findAll() {
 		
-		return questionRepository.findAll();
+		return questionRepository.findAll().stream().sorted(Comparator.comparing(Question::getDescription)).collect(Collectors.toList());
 	}
 
 	@Override
@@ -47,5 +49,9 @@ public class QuestionServiceImpl implements IQuestionService {
 		
 		return questionRepository.findById(id).orElse(null);
 	}
+	
+	
+	
+
 
 }

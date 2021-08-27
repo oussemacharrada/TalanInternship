@@ -4,22 +4,27 @@ import { CategoryService } from '../services/category.service';
 import { Question } from '../models/question.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionService } from '../services/question.service';
+import {MatTabsModule} from '@angular/material/tabs';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public categorys : Category[] | undefined; 
+  public categorys : Category[] = []; 
 
   
   selectedValue: string|undefined;
  
 
   
+  public TotalCategories: number =0;
+  
 
+public TotalQuestions: number =0;
  
-  questions?: Question[];
+  questions: Question[]=[];
   
   currentIndex = -1;
   category = '';
@@ -50,15 +55,18 @@ export class HomeComponent implements OnInit {
     this.getQuestion(this.route.snapshot.params.id);
     
     this.getCategorys();
+
+
   }
   public getCategorys(): void {
     this.CategoryService.getCategorys().subscribe(
       (response: Category[]) => {
         this.categorys = response;
-        console.log(this.categorys);
+       
       },
     
-    );
+    );  
+    
   }
   retrieveQuestions(): void {
     this.questionService.getAll()
@@ -70,6 +78,7 @@ export class HomeComponent implements OnInit {
         error => {
           console.log(error);
         });
+        
   }
   getQuestion(id: any): void {
     this.questionService.get(id)
@@ -81,8 +90,7 @@ export class HomeComponent implements OnInit {
         error => {
           console.log(error);
         });
-  }
- 
-  
+        
 
+  }
 }

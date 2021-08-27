@@ -14,7 +14,7 @@ import lombok.Data;
 		@Data
 		@Entity
 		@Table(name = "question")
-		public class Question {
+		public class Question implements Comparable<Question> {
 
 		   
 		   
@@ -23,7 +23,12 @@ import lombok.Data;
 		    private Integer id;
 			private String description;
 			private String category;
-			private boolean published;}
+			private boolean published;
+			@Override
+			public int compareTo(Question arg0) {
+				// TODO Auto-generated method stub
+				return 0;
+			}}
 			
 
 			

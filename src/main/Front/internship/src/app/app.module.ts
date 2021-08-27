@@ -15,15 +15,17 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule } from '@angular/material/list';
 import { DataTablesModule } from 'angular-datatables';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {Ng7BootstrapBreadcrumbModule} from "ng7-bootstrap-breadcrumb";
 
 import { FormsModule } from '@angular/forms';
-;
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { QuestionFormComponent } from './Components/question-form/question-form.component';
 import { QuestionListComponent } from './Components/question-list/question-list.component';
 
-
+import {MatTabsModule} from '@angular/material/tabs';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,6 +40,7 @@ import { HomeComponent } from './home/home.component';
 import { CategoryOverViewComponent } from './category-over-view/category-over-view.component';
 import { ThreadOverViewComponent } from './thread-over-view/thread-over-view.component';
 import { QuestionOverViewComponent } from './question-over-view/question-over-view.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 
@@ -81,7 +84,11 @@ MatInputModule,
 MatCardModule,
 MatGridListModule,
 MatSelectModule,
-MatTableModule
+MatTableModule,
+MatPaginatorModule,
+Ng2SearchPipeModule,
+Ng7BootstrapBreadcrumbModule,
+MatTabsModule
 
 
   ],

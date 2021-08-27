@@ -12,5 +12,11 @@ public interface IQuestionService {
 	public MessageResponse update(Question question);
 	public List<Question> findAll();
 	public Question findById(Integer id );
+	
+	
+
+	
+	
+	
 
 }
